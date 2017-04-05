@@ -48,6 +48,7 @@
                 <ul class="nav navbar-nav">
                    <!--  <li><a href="{{ url('/') }}">Ranking</a></li> //-->
                     <li class="active"><a href="{{ url('/jugadores') }}">Jugadores</a></li>
+                    <li class="active"><a href="{{ url('/clubs') }}">Clubs</a></li>
                    <!--  <li><a href="{{ url('/') }}">Equipos</a></li> //-->
                 </ul>
                 @endif

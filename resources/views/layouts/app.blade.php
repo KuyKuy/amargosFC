@@ -49,6 +49,7 @@
                 @if (!Auth::guest())
                 <ul class="nav navbar-nav">
                     <li class="{{Request::path() == 'jugadores' ? 'active' : '' }}"><a href="{{ url('/jugadores') }}">Jugadores</a></li>
+                    <li class="{{Request::path() == 'clubs' ? 'active' : '' }}"><a href="{{ url('/clubs') }}">Clubs</a></li>
                 </ul>
                 @endif
  
