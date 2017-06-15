@@ -1,4 +1,4 @@
-#Definición funcional
+# Definición funcional
  
  
 Una aplicación para poder determinar cuales son los jugadores y los equipos más amargos de la argentina
@@ -12,9 +12,9 @@ etc
 Por otro lado la aplicación será utilizada por otros usuarios (Usuarios de consulta) para consultar la información. Estos usuarios no podrán cargar ni modificar la información.
  
  
-##Descripción de funcionalidades
+## Descripción de funcionalidades
  
-###Pantalla de Registración
+### Pantalla de Registración
  
 En esta pantalla se podrán registrar los usuarios de consulta con los siguientes datos:
 * Nombre
@@ -25,7 +25,7 @@ En esta pantalla se podrán registrar los usuarios de consulta con los siguiente
 La contraseña debe tener como mínimo 6 caracteres y máximo 12 caracteres.
 Cabe aclarar que el usuario administrador no debe registrase ya que es generado por el sistema de forma automática.
  
-###Pantalla de Login
+### Pantalla de Login
  
 Esta pantalla se presentará a los usuarios cada vez que intenten acceder al sistema y no se hayan logueado previamente.
  
