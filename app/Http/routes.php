@@ -18,12 +18,8 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
-
-Route::auth();
-
-Route::get('/home', 'HomeController@index');
-Route::resource("jugadores","JugadorController");
-Route::resource("jugadors","JugadorController");
+Route::resource("jugadores", "JugadorController");
+Route::resource("clubs", "ClubController");
 
 Route::get('social/auth/redirect/{provider}', 'Auth\AuthController@redirectToProvider');
 Route::get('social/auth/{provider}', 'Auth\AuthController@handleProviderCallback');

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 @section('css')
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css" rel="stylesheet">
 @endsection
@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-12">
 
-            <form action="{{ route('jugadors.update', $jugador->id) }}" method="POST">
+            <form action="{{ route('jugadores.update', $jugador->id) }}" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -40,15 +40,15 @@
                        @endif
                     </div>
                     <div class="form-group @if($errors->has('fechanacimiento')) has-error @endif">
-                       <label for="fechanacimiento-field">FechaNacimiento</label>
-                    <input type="date" id="fechanacimiento-field" name="fechanacimiento" class="form-control" value="{{ is_null(old("fechanacimiento")) ? $jugador->fechanacimiento : old("fechanacimiento") }}"/>
+                       <label for="fechanacimiento-field">Fecha de Nacimiento</label>
+                    <input type="date" id="fechanacimiento-field" name="fechanacimiento" class="form-control" value="{{ is_null(old("fechanacimiento")) ? $jugador->fechaNacimiento : old("fechanacimiento") }}"/>
                        @if($errors->has("fechanacimiento"))
                         <span class="help-block">{{ $errors->first("fechanacimiento") }}</span>
                        @endif
                     </div>
                 <div class="well well-sm">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-link pull-right" href="{{ route('jugadors.index') }}"><i class="glyphicon glyphicon-backward"></i>  Back</a>
+                    <a class="btn btn-link pull-right" href="{{ route('jugadores.index') }}"><i class="glyphicon glyphicon-backward"></i>  Back</a>
                 </div>
             </form>
 

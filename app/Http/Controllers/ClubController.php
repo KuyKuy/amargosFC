@@ -3,11 +3,11 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Validator;
-use App\Jugador;
+use App\Club;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator as Paginator;
 
-class JugadorController extends Controller {
+class ClubController extends Controller {
 
 	/**
      * Create a new controller instance.
@@ -32,12 +32,13 @@ class JugadorController extends Controller {
 		// force current page to 5
 		
 		$input = $request->all();
-		$q = Jugador::query();
-		
+		$q = Club::query();
+	/*	
 		if(!empty($input['apodo']))
 		{
 		 $q->where('apodo','like','%'.$input['apodo'].'%');
-		}
+        }
+     */
 		if(!empty($input['page']))
 		{
 		 $currentPage = $input['page'];
@@ -45,10 +46,10 @@ class JugadorController extends Controller {
 		Paginator::currentPageResolver(function() use ($currentPage) {
 		    return $currentPage;
 		});
-		$jugadors = $q->orderBy('id','asc')->paginate($totalPerPage);
-		$count = $jugadors->count();
+		$clubs = $q->orderBy('id','asc')->paginate($totalPerPage);
+		$count = $clubs->count();
 	
-		return view('jugadors.index', compact('jugadors','count','current'));
+		return view('clubs.index', compact('clubs','count','current'));
 	}
 
 	/**
@@ -58,7 +59,7 @@ class JugadorController extends Controller {
 	 */
 	public function create()
 	{
-		return view('jugadors.create');
+		return view('clubs.create');
 	}
 
 	/**
@@ -70,21 +71,29 @@ class JugadorController extends Controller {
 	public function store(Request $request)
 	{
 	   $this->validate($request, [
-	    'nombre' => 'required|alpha|max:50',
-            'apellido' => 'required|alpha|max:50',
-            'apodo' => 'required|alpha|max:20',
-            'fechanacimiento' => 'required|date|before:today'
+	    'nombre' => 'required|unique:clubs|alpha|max:50',
+	    'ubicacion' => 'required|alpha|max:50',
+	    'categoria' => 'required|string|max:50',
+        'fechanacimiento' => 'required|date|before:today',
+//	    'avatar' => 'mimes:jpeg,bmp,png,svg|between:1,2000',
+	    'biografia' => 'string',
+	    'URL' => 'url|max:255'
 	   ]);
-		$jugador = new Jugador();
+		$club = new Club();
 
-		$jugador->nombre = $request->input("nombre");
-        $jugador->apellido = $request->input("apellido");
-        $jugador->apodo = $request->input("apodo");
-        $jugador->fechaNacimiento = $request->input("fechanacimiento");
+		$club->nombre           = $request->input("nombre");
+		$club->ubicacion        = $request->input("ubicacion");
+		$club->categoria        = $request->input("categoria");
+        $club->fechaNacimiento  = $request->input("fechanacimiento");
+		$club->biografia        = $request->input("biografia");
+		$club->url              = $request->input("URL");
 
-		$jugador->save();
 
-		return redirect()->route('jugadores.index')->with('message', 'Item created successfully.');
+//		$club->imagen           = $request->file('avatar')->store('avatars');
+
+		$club->save();
+
+		return redirect()->route('clubs.index')->with('message', 'Item created successfully.');
 	}
 
 	/**
@@ -95,9 +104,9 @@ class JugadorController extends Controller {
 	 */
 	public function show($id)
 	{
-		$jugador = Jugador::findOrFail($id);
+		$club = Club::findOrFail($id);
 
-		return view('jugadors.show', compact('jugador'));
+		return view('clubs.show', compact('club'));
 	}
 
 	/**
@@ -108,9 +117,9 @@ class JugadorController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$jugador = Jugador::findOrFail($id);
+		$club = Club::findOrFail($id);
 
-		return view('jugadors.edit', compact('jugador'));
+		return view('clubs.edit', compact('club'));
 	}
 
 	/**
@@ -124,20 +133,16 @@ class JugadorController extends Controller {
 	{
 	   $this->validate($request, [
 	    'nombre' => 'required|alpha|max:50',
-            'apellido' => 'required|alpha|max:50',
-            'apodo' => 'required|alpha|max:20',
             'fechanacimiento' => 'required|date|before:today'
 	   ]);
-		$jugador = Jugador::findOrFail($id);
+		$club = Club::findOrFail($id);
 
-		$jugador->nombre = $request->input("nombre");
-        $jugador->apellido = $request->input("apellido");
-        $jugador->apodo = $request->input("apodo");
-        $jugador->fechaNacimiento = $request->input("fechanacimiento");
+		$club->nombre = $request->input("nombre");
+        $club->fechaNacimiento = $request->input("fechanacimiento");
 
-		$jugador->save();
+		$club->save();
 
-		return redirect()->route('jugadores.index')->with('message', 'Item updated successfully.');
+		return redirect()->route('clubs.index')->with('message', 'Item updated successfully.');
 	}
 
 	/**
@@ -148,10 +153,10 @@ class JugadorController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$jugador = Jugador::findOrFail($id);
-		$jugador->delete();
+		$club = Club::findOrFail($id);
+		$club->delete();
 
-		return redirect()->route('jugadores.index')->with('message', 'Item deleted successfully.');
+		return redirect()->route('clubs.index')->with('message', 'Item deleted successfully.');
 	}
 
 }
